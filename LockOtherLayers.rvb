@@ -1,0 +1,21 @@
+﻿Option Explicit
+'Script written by <Junichiro Horikawa>
+'Script copyrighted by <Junichiro Horikawa>
+'Script version Sunday, 20 November 2011 14:52:33
+
+Call Main()
+Sub Main()
+	Dim strObj,strLayer,arrLayers,strL
+	strObj = Rhino.GetObject("Select object to lock other layers")
+	If IsNull(strObj) Then Exit Sub
+	Rhino.EnableRedraw(False)
+	strLayer = Rhino.ObjectLayer(strObj)
+	arrLayers = Rhino.LayerNames()
+	
+	For Each strL In arrLayers
+		If strL <> strLayer Then
+			Rhino.LayerLocked strL, True
+		End If
+	Next
+	Rhino.EnableRedraw(True)
+End Sub
